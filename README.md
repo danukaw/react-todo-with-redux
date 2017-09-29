@@ -1,1 +1,1 @@
-# react-todo-with-redux
+React Boilerplate App 
