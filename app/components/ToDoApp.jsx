@@ -6,9 +6,9 @@ import ToDoSearch from 'ToDoSearch';
 
 var  moment = require('moment');
 var uuidv1 = require('uuid/v1');
-var ToDoApp = React.createClass({
+export class ToDoApp extends React.Component{
 
-  render : function () {
+  render() {
 
     return (
         <div>
@@ -26,6 +26,8 @@ var ToDoApp = React.createClass({
       );
   }
 
-});
+};
+
+//export default ToDoApp;
 
 module.exports = ToDoApp;

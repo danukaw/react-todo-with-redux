@@ -4,9 +4,9 @@ var {connect} = require('react-redux');
 var TodoAPI =  require('TodoAPI');
 
 //ES6 destructuring.
-export var ToDoList = React.createClass({
+export class ToDoList extends React.Component{
 
-  render : function () {
+  render() {
 
     var {todolist, searchText, showCompleted} = this.props;
 
@@ -34,7 +34,7 @@ export var ToDoList = React.createClass({
     );
   }
 
-});
+};
 export default connect(
   (state)=>{
     return state;
