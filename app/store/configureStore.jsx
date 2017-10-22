@@ -1,6 +1,8 @@
-var redux = require('redux');
+//var redux = require('redux');
+import * as redux from 'redux';
+import thunk from 'redux-thunk';
 //var thunk = require('redux-thunk').default;
-var {sarchTextReducer, showCompltedReducer, addTodoReducer} = require('Reducers');
+import {sarchTextReducer, showCompltedReducer, addTodoReducer} from 'Reducers';
 
 export var configStore = (initialState = {"searchText": "default search text", "showCompleted" : false }) => {
   // combineReducers
@@ -12,6 +14,7 @@ export var configStore = (initialState = {"searchText": "default search text", "
 
   var store = redux.createStore(reducers, initialState, redux.compose(
       //redux.applyMiddleware(thunk),
+      redux.applyMiddleware(thunk),
       window.devToolsExtension ? window.devToolsExtension() : f => f
   ));
 

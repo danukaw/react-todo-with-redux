@@ -13,7 +13,7 @@ export class AddTodo extends React.Component{
      console.log("todo ==> ", toDo);
      this.refs.todo.value = "";
      //this.props.onSetTodo(toDo);
-     dispatch(actions.addToDo(toDo));
+     dispatch(actions.startAddToDo(toDo));
    } else {
       this.refs.todo.focus();
    }

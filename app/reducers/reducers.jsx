@@ -48,13 +48,7 @@ export var addTodoReducer = (state=[], action) => {
     case 'ADD_TO_DO':
       return [
         ...state,
-        {
-          "id" : uuidv1(),
-          "task" : action.text,
-          "completed" : false,
-          "createdAt" : moment().unix(),
-          "completedAt" : undefined
-        }
+        action.todo
       ];
 
     case 'TOGGLE_TO_DO' :
@@ -62,11 +56,9 @@ export var addTodoReducer = (state=[], action) => {
       return state.map((todo) => {
 
         if (todo.id === action.id) {
-          var nextstatus = !todo.completed;
           return {
             ...todo,
-            "completed" : nextstatus,
-            "completedAt" : nextstatus ? moment().unix() : undefined
+            ...action.updates
           }
         } else {
           return todo;
@@ -78,7 +70,7 @@ export var addTodoReducer = (state=[], action) => {
         ...state,
         ...action.addTodos
       ];
-      
+
     default:
       return state;
 

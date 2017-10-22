@@ -28,7 +28,7 @@ export class ToDo extends React.Component {
       <div className ={todoClassName} onClick={
           () => {
             //this.props.onToggle(id)
-            dispatch(actions.toggleToDo(id));
+            dispatch(actions.startToggleToDo(id, !completed));
           }
         }>
         <div>

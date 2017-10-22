@@ -1,6 +1,8 @@
 var webpack = require('webpack');
 var path = require('path');
 
+process.env.NODE_ENV = process.env.NODE_ENV ? 'production' : 'development'
+
 module.exports = {
 
   entry: [
@@ -15,6 +17,10 @@ module.exports = {
     new webpack.ProvidePlugin({
       '$' : 'jquery',
       'jQuery' : 'jquery'
+    }), new webpack.optimize.UglifyJsPlugin({
+      compressor : {
+        warnings : false
+     }
     })
   ],
   output: {
@@ -29,6 +35,7 @@ module.exports = {
       './app/api'
     ],
     alias : {
+      App :'app',
       ApplicationStyles : 'app/style/app.scss',
       Actions : 'app/actions/actions.jsx',
       Reducers : 'app/reducers/reducers.jsx',
@@ -54,5 +61,5 @@ module.exports = {
       path.resolve(__dirname, './node_modules/foundation-sites/scss')
     ]
   },
-  devtool: 'eval-source-map'
+  devtool: process.env.NODE_ENV === 'production' ? undefined : 'eval-source-map'
 };
