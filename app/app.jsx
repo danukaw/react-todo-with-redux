@@ -22,15 +22,18 @@ var store = require('configureStore').configStore();
 /*var initialTodos = TodoAPI.getTodos();
 store.dispatch(actions.addToDos(initialTodos));
 */
-store.dispatch(actions.startAddTodos());
+//store.dispatch(actions.startAddTodos());
 
 $(document).foundation();
 require('style!css!sass!ApplicationStyles');
 
 firebase.auth().onAuthStateChanged((user) => {
   if(user) {
+    store.dispatch(actions.login(user.uid));
+    store.dispatch(actions.startAddTodos());
     hashHistory.push('/todos');
   } else {
+    store.dispatch(actions.logout());
     hashHistory.push('/');
   }
 });

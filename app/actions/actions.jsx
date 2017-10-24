@@ -24,7 +24,9 @@ export var startAddToDo = (text) => {
       "createdAt" : moment().unix(),
       "completedAt" : null
     };
-    var todosRef = firebaseRef.child('todos').push(todo);
+
+    var uid = getState().auth.uid;
+    var todosRef = firebaseRef.child(`users/${uid}/todos`).push(todo);
 
     return todosRef.then(()=> {
         dispatch(addToDo({
@@ -51,8 +53,8 @@ export var startToggleToDo = (id, completed) => {
       "completed" : completed,
       "completedAt" : completed ? moment().unix() : null
     }
-
-    var todosRef = firebaseRef.child('todos/'+id);
+    var uid = getState().auth.uid;
+    var todosRef = firebaseRef.child(`users/${uid}/todos/`+id);
 
     return todosRef.update(updates).then(()=> {
       dispatch(updateTogleTodo(id, updates));
@@ -72,7 +74,8 @@ export var startAddTodos = () => {
 
   return (dispatch, getState) => {
 
-    var todosRef = firebaseRef.child('todos');
+    var uid = getState().auth.uid;
+    var todosRef = firebaseRef.child(`users/${uid}/todos`);
 
     return todosRef.once('value').then((snapshot) => {
 
@@ -98,6 +101,19 @@ export var addToDos = (addTodos) => {
   return {
     type: 'ADD_TODOS',
     addTodos
+  }
+};
+
+export var login = (uid) => {
+  return {
+    type: 'LOGIN',
+    uid
+  }
+};
+
+export var logout = () => {
+  return {
+    type: 'LOGOUT'
   }
 };
 
