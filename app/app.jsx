@@ -11,7 +11,8 @@ var Main = require('Main');
 
 import Login from 'Login';
 import ToDoApp from 'ToDoApp';
-
+import firebase from 'App/firebase';
+import Navigation from 'App/route';
 //import './../playground/firebase/index';
 
 var store = require('configureStore').configStore();
@@ -36,14 +37,17 @@ $(document).foundation();
 
 require('style!css!sass!ApplicationStyles');
 
+firebase.auth().onAuthStateChanged((user) => {
+  if(user) {
+    hashHistory.push('/todos');
+  } else {
+    hashHistory.push('/');
+  }
+});
+
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hashHistory}>
-      <route path="/">
-        <route path="todos" component={ToDoApp}/>
-        <IndexRoute component={Login}/>
-      </route>
-    </Router>
+    <Navigation/>
   </Provider>,
   document.getElementById('app')
 );
